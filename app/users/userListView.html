@@ -1,0 +1,38 @@
+<div class="panel panel-primary">
+    <div class="panel-heading" style="font-size:large">{{::vm.title}}
+    </div>
+
+    <div class="panel-body">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="vm.toggleImage()">
+                            {{vm.showImage ? "Hide" : "Show"}} Image
+                        </button>
+                    </td>
+                    <td>Login</td>
+                    <td>Avatar</td>
+                    <td>Gravatar</td>
+                    <td>URL</td>
+                    <td>Type</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in vm.users">
+                    <td>
+                        <a ng-href="userDetail/{{user.login}}">
+                            <img ng-if="vm.showImage" ng-src="{{user.avatar_url}}" style="width:50px;margin:2px" title="{{user.login}}" />
+                        </a>
+                    </td>
+                    <td>{{user.login}}</td>
+                    <td><a ng-href="{{user.avatar_url}}" class="btn btn-default">View Larger Image</a></td>
+                    <td>{{user.gravatar_id}}</td>
+                    <td><a ng-href="{{user.html_url}}" class="btn btn-default">Got To Page</a></td>
+                    <td>{{user.type}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

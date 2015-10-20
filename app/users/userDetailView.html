@@ -1,0 +1,40 @@
+<div class="panel panel-primary">
+	<div class="panel-heading" style="font-size:large">
+		{{::vm.title}}
+	</div>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-2">Login:</div>
+					<div class="col-md-6">{{vm.user.login}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">Avatar:</div>
+					<div class="col-md-6"><a ng-href="{{vm.user.avatar_url}}" class="btn btn-default">View Larger Image</a></div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">Gravatar:</div>
+					<div class="col-md-6">{{vm.user.gravatar_id}}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">URL:</div>
+					<div class="col-md-6"><a ng-href="{{vm.user.html_url}}" class="btn btn-default">Got To Page</a></div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">Type:</div>
+					<div class="col-md-6">{{vm.user.type}}</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<img ng-src="{{vm.user.avatar_url}}" style="width:200px;margin:2px" title="{{vm.user.login}}" />
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<a class="btn btn-default" ng-href="#userList" style="width:80px">
+			< Back </a>
+	</div>
+</div>
