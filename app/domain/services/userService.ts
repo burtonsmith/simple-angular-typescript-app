@@ -2,34 +2,29 @@ module app.domain.services {
 	'use strict';
 
 	interface IUserService {
-		getAll(): entities.IUser[];
-		getByLogin(userLogin: string): entities.IUser;
+		getAll(): ng.resource.IResourceArray<dataAccess.IDataResource<entities.IUser>>;
+		getByLogin(userLogin: string): dataAccess.IDataResource<entities.IUser>;
 	}
 
 	export class UserService implements IUserService {
 		static $inject: string[] = ['dataAccessService'];
 		constructor(private dataAccessService: dataAccess.DataAccessService<entities.IUser>) {
-
+			
 		}
 
-		getAll(): app.domain.entities.IUser[] {
-			var users: app.domain.entities.IUser[];
+		getAll(): ng.resource.IResourceArray<dataAccess.IDataResource<entities.IUser>> {
 			var userResource = this.dataAccessService.getDataResource('https://api.github.com/users');
-			userResource.query((data: app.domain.entities.IUser[]) => {
-				users = data;
+			return userResource.query((data: entities.IUser[]): entities.IUser[] => {
+				return data;
 			});
-			
-			return users;
 		}
-
-		getByLogin(userLogin: string): entities.IUser {
-			var user: entities.IUser;
+		
+		getByLogin(userLogin: string): dataAccess.IDataResource<entities.IUser> {
 			var userResource = this.dataAccessService.getDataResource('https://api.github.com/users/:userLogin');
-			userResource.get({ userLogin : userLogin }, (data: app.domain.entities.IUser) => {
-				user = data;
+			return userResource.get({ userLogin : userLogin }, (data: entities.IUser): entities.IUser => {
+				return data;
 			});
-			
-			return user;
+
 		}
 	}
 

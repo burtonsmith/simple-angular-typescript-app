@@ -3,30 +3,36 @@ module app.users {
 
 	interface IUserListController {
 		title: string;
-		users: domain.entities.IUser[];
+		users: ng.resource.IResourceArray<dataAccess.IDataResource<domain.entities.IUser>>;
 		showImage: boolean;
 		toggleImage(): void;
 		activate: () => void;
+		getUsers(): void;
 	}
 
 	class UserListController implements IUserListController {
 		title: string = 'User List';
-		users: domain.entities.IUser[];
+		users: ng.resource.IResourceArray<dataAccess.IDataResource<domain.entities.IUser>>;
 		showImage: boolean;
-		
-		static $inject: string[] = ['userService'];
-		constructor(userService: app.domain.services.UserService) {
+
+		static $inject: string[] = ['userService', 'dataAccessService'];
+		constructor(private userService: app.domain.services.UserService, private dataAccessService: dataAccess.DataAccessService<domain.entities.IUser>) {
 			this.activate();
 			this.showImage = true;
-			this.users = userService.getAll();
 		}
 
+		getUsers(): void {	
+			this.userService.getAll().$promise.then((data: ng.resource.IResourceArray<dataAccess.IDataResource<domain.entities.IUser>>) => {
+				this.users = data;
+			 });
+		}
+		
 		toggleImage(): void {
 			this.showImage = !this.showImage;
-		}		
-		
-		activate() {
+		}
 
+		activate() {
+			this.getUsers();
 		}
 	}
 

@@ -4,18 +4,26 @@ var app;
     (function (users) {
         'use strict';
         var UserListController = (function () {
-            function UserListController(userService) {
+            function UserListController(userService, dataAccessService) {
+                this.userService = userService;
+                this.dataAccessService = dataAccessService;
                 this.title = 'User List';
                 this.activate();
                 this.showImage = true;
-                this.users = userService.getAll();
             }
+            UserListController.prototype.getUsers = function () {
+                var _this = this;
+                this.userService.getAll().$promise.then(function (data) {
+                    _this.users = data;
+                });
+            };
             UserListController.prototype.toggleImage = function () {
                 this.showImage = !this.showImage;
             };
             UserListController.prototype.activate = function () {
+                this.getUsers();
             };
-            UserListController.$inject = ['userService'];
+            UserListController.$inject = ['userService', 'dataAccessService'];
             return UserListController;
         })();
         angular.module('app').controller('UserListController', UserListController);

@@ -18,7 +18,9 @@ module app.users {
 		static $inject: string[] = ['$routeParams', 'userService'];
 		constructor(private $routeParams: IUserParams,
 			userService: app.domain.services.UserService) {
-			this.user = userService.getByLogin($routeParams.userLogin);
+			userService.getByLogin($routeParams.userLogin).$promise.then((data: domain.entities.IUser) => {
+				this.user = data;
+			});
 
 			this.activate();
 		}

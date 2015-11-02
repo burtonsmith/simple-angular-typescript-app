@@ -10,20 +10,16 @@ var app;
                     this.dataAccessService = dataAccessService;
                 }
                 UserService.prototype.getAll = function () {
-                    var users;
                     var userResource = this.dataAccessService.getDataResource('https://api.github.com/users');
-                    userResource.query(function (data) {
-                        users = data;
+                    return userResource.query(function (data) {
+                        return data;
                     });
-                    return users;
                 };
                 UserService.prototype.getByLogin = function (userLogin) {
-                    var user;
                     var userResource = this.dataAccessService.getDataResource('https://api.github.com/users/:userLogin');
-                    userResource.get({ userLogin: userLogin }, function (data) {
-                        user = data;
+                    return userResource.get({ userLogin: userLogin }, function (data) {
+                        return data;
                     });
-                    return user;
                 };
                 UserService.$inject = ['dataAccessService'];
                 return UserService;

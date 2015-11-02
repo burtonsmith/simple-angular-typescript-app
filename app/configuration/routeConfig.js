@@ -12,4 +12,4 @@ var app;
         }
     })(config = app.config || (app.config = {}));
 })(app || (app = {}));
-//# sourceMappingURL=appConfig.js.map
+//# sourceMappingURL=routeConfig.js.map
